@@ -1,0 +1,7 @@
+{
+  "name": "exchange",
+  "dependencies": {
+    "express": "^4.12.2",
+    "ejs": "^1.0.0"
+  }
+}

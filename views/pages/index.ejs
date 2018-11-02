@@ -1,0 +1,105 @@
+<head>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src="https://tradeitforweed.io/steem.min.js"></script>
+</head>
+ Enter input currency:
+    <select id='input'>
+        <option value='ETH'>Ethereum</option>
+        <option value='BTC'>Bitcoin</option>
+        <option value='LTC'>Litecoin</option>
+        <option value='BCH'>Bitcoin Cash</option>
+        <option value='BTG'>Bitcoin Gold</option>
+        <option value='DASH'>Dash</option>
+        <option value='ETC'>Ethereum Classic</option>
+    </select>and output currency:
+    <select id='output'>
+        <option value='SMOKE'>Smoke</option>
+        <option value='LSK'>Lisk</option>
+        <option value='EOS'>Eos</option>
+        <option value='STEEM'>Steem</option>
+        <option value='ARK'>Ark</option>
+        <option value='LSK'>Nano</option>
+        <option value='ADA'>Cardano</option>
+        <option value='XTZ'>Tezos</option>
+        <option value='BTS'>BitShares</option>
+        <option value='OXY'>Oxycoin</option>
+    </select>and input amount:
+    <input value='1' onChange='doChange();' id='amt' type='text'></input> and account name to receive:
+    <input type='text' id='account'></input><br><div id='resp'></div>
+<script>
+
+function ajax_get(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            try {
+                var data = JSON.parse(xmlhttp.responseText);
+            } catch(err) {
+                console.log(err.message + " in " + xmlhttp.responseText);
+                return;
+            }
+            callback(data);
+        }
+    };
+ 
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+var fees = 0.95;
+function doChange(){
+
+$('#resp').html('')
+		ajax_get('https://api.coinmarketcap.com/v2/listings/', function(data3) {
+		data3 = (data3.data)
+		var input = $('#input').val()
+		var output = $('#output').val()
+		if (output == "SMOKE"){
+			steem.api.getAccounts(['tfw.club'], function(err, response){
+			    $('#resp').append(response[0].balance + ' available to trade!');
+			});
+		}
+		var amt = $('#amt').val()
+		console.log(input)
+		for (var d in data3){	
+			if (data3[d].symbol == output){
+			console.log(data3[d].symbol);
+			console.log(output);
+			console.log(data3[d].id);	
+ajax_get('https://api.coinmarketcap.com/v2/ticker/' + data3[d].id + '/', function( data) {
+			data = (data)
+console.log(data)
+    var price = (data.data.quotes.USD.price);
+	
+	ajax_get('https://api.coinmarketcap.com/v2/listings/', function( data3) {
+		data3 = (data3.data)
+		for (var d in data3){
+			if (data3[d].symbol == input){
+								
+					ajax_get('https://api.coinmarketcap.com/v2/ticker/' + data3[d].id + '/', function(data2) {
+						data2 = (data2);
+
+					amt = (data2.data.quotes.USD.price) * amt;
+					console.log(data2.data.quotes.USD.price)
+					console.log(data2.data)
+					var toGet = (amt / price) * fees;
+					$('#resp').append('<br>You will recieve (less fees at fair market value): ' + toGet.toString().substr(0, toGet.toString().indexOf('.')+3));
+					$('#resp').append('<form action="/form2" method="post"><input type="hidden" name="input" value="' + input + '"><input type="hidden" name="account" value="' + account + '"></input><input type="hidden" name="output" value="' + output + '"></input><input type="submit" value="Start Transaction!" ></input></form>');
+					
+				});
+			}
+		}
+	});
+	
+
+});
+
+
+}
+}
+});
+}
+</script>
+<br>
+<br>
+<div name='div'></div>
+<script>
