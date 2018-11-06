@@ -1,0 +1,223 @@
+.pay-container {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+}
+
+.flexing {
+  display: flex;
+  align-items: flex-start;
+}
+
+.input-box {
+  position: relative;
+  padding-top: 18px;
+  margin: 0px 16px;
+}
+
+.input-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: normal;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  position: absolute;
+  top: 0px;
+  margin-bottom: 2px;
+}
+
+.coins-input {
+  display: flex; justify-content: flex-end; align-items: center; transition: all 300ms ease 0s; color: rgb(0, 0, 0); background: none; font-size: 14px; font-weight: 500; cursor: pointer;
+}
+
+.coin-name {
+  color: #d4d4d4; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: normal;
+}
+
+.dropdowner {
+  display: inline-flex; position: relative; font-size: 8px; padding-left: 4px; color: #ffffff;
+}
+
+.coin-input {
+  width: 100%; padding: 0px 0px 6px; border-bottom: 1px solid rgb(223, 223, 223); border-left: none rgb(223, 223, 223); border-right: none rgb(223, 223, 223); border-top: none rgb(223, 223, 223); text-overflow: ellipsis; transition: all 300ms ease 0s; color: white; background: none; font-size: 14px; border-radius: 0px; margin-top: 18px;
+}
+
+.coins {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("../../assets/img/ethereum.svg");
+  background-color: #191744;
+  height: 56px;
+  width: 56px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+  border: 10px
+  solid rgb(27, 21, 71);
+  border-radius: 100%;
+  background-size: cover;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+
+.coins-convert {
+  height: 40px;
+  width: 40px;
+  margin:auto;
+}
+
+.ETH {
+  background-image: url("../../assets/img/ethereum.svg");
+}
+
+.BTC {
+  background-image: url("../../assets/img/bitcoin.svg");
+  background-color: #FF9800;
+  border: 10px solid #FF9800;
+}
+
+.LTC {
+  background-image: url("../../assets/img/litecoin.svg");
+  background-color: #9E9E9E;
+  border: 10px solid #9E9E9E;
+}
+
+.DASH {
+  background-image: url("../../assets/img/dash.svg");
+  background-color: #008ee1;
+  border: 10px solid #008ee1;
+}
+
+.BCH {
+  background-image: url("../../assets/img/bitcoin.svg");
+  background-color: #4CAF50;
+  border: 10px solid #4CAF50;
+}
+
+.BTG {
+  background-image: url("../../assets/img/bitcoin.svg");
+  background-color: #FFC107;
+  border: 10px solid #FFC107;
+}
+
+.EOS {
+  background-image: url("../../assets/img/eos.svg");
+  background-color: #354387;
+  border: 10px solid #354387;
+}
+
+.BTS {
+  background-image: url("../../assets/img/bitshares.svg");
+  background-color: #00bbf0;
+  border: 10px solid #00bbf0;
+}
+
+.STEEM {
+  background-image: url("../../assets/img/steem.svg");
+  background-color: #008ee1;
+  border: 10px solid #008ee1;
+}
+
+.WAX {
+  background-image: url("../../assets/img/letter-w.svg");
+  background-color: #FFC107;
+  border: 10px solid #FFC107;
+}
+
+.WLS {
+  background-image: url("../../assets/img/wls.png");
+  background-color: #008ee1;
+  border: 10px solid #008ee1;
+}
+
+.SMOKE {
+  background-image: url("../../assets/img/smoke.png");
+  background-color: #00c800;
+  border: 10px solid #00c300;
+}
+
+.convert-button {
+  border-width: 1px; display: flex; height: 48px; justify-content: center; align-items: center; cursor: pointer; font-weight: 500; border-radius: 8px; color: rgb(255, 255, 255); background: rgb(18, 149, 229); box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px; transition: all 300ms ease 0s; margin-top: 4px; border-style: solid; border-color: rgb(13, 125, 193);
+}
+
+.convert-button-span {
+  white-space: nowrap; text-overflow: ellipsis; overflow: hidden; line-height: normal;
+}
+
+
+.logo-space {
+  width: 25px;
+  margin-right: 5px;
+  margin-top: -3px;
+}
+
+.coin-pads {
+  padding: 25px;
+  border-radius: 10%;
+  max-width: 30%;
+  margin: auto;
+  margin-bottom: 15px;
+  cursor: pointer
+}
+
+.coin-selector a:hover {
+  background: #1a3b7766
+}
+
+
+.coin-active {
+  border: solid 1.2px #008ee1;
+  background: #008ee13b;
+}
+
+.coins-modal {
+  background-color: #191744;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px 0px;
+  border: 10px solid rgb(27, 21, 71);
+  border-radius: 100%;
+  background-size: cover;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.coins-table {
+      width: 25px;
+}
+
+.btc {
+  background-color: #FF9800;
+  border: 10px solid #FF9800;
+}
+
+.ltc {
+  background-color: #9E9E9E;
+  border: 10px solid #9E9E9E;
+}
+
+.dash {
+  background-color: #008ee1;
+  border: 10px solid #008ee1;
+}
+
+.bch {
+  background-color: #4CAF50;
+  border: 10px solid #4CAF50;
+}
+
+.btg {
+  background-color: #FFC107;
+  border: 10px solid #FFC107;
+}
+
+.smoke {
+  background-color: #00c800;
+  border: 10px solid #00cc00;
+}
+
+.bts {
+  background-color: #00bbf0;
+  border: 10px solid #00bbf0;
+}
