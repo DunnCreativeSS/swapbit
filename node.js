@@ -27,7 +27,8 @@ app.get('/prices', function(req, res){
   console.log(req.query.amt)
   prices(req.query.amt, req.query.coin, res);
 });
-async function prices(amount, coin,res2 ){
+ function prices(amount, coin,res2 ){
+  try{
   console.log(coin)
   var amount2 = parseFloat(amount)
   console.log('lala')
@@ -37,18 +38,21 @@ let wsString = "wss://bitshares.openledger.info/ws";
 Apis.instance(wsString, true).init_promise.then((res) => {
     console.log("connected to:", res[0].network);
 
-   Apis.instance().db_api().exec( "get_order_book", [ 'BTS', coin, 50] ).then((res) => {
+   Apis.instance().db_api().exec( "get_order_book", [ 'BTS', coin,50] ).then((res) => {
 var bidsA = []
 var asksA = []
-for (var a in res.asks){
+for (var a in res.bids){
+  console.log(res.bids[a])
   bidsA.push({price: parseFloat(res.bids[a].price), quote: parseFloat(res.bids[a].quote)})
 }
 for (var a in res.asks){
-  asksA.push({price: parseFloat(res.asks[a].price), quote: parseFloat(res.asks[a].base)})
+  asksA.push({price: parseFloat(res.asks[a].price), quote: parseFloat(res.asks[a].quote)})
 }
 bidsA.sort(function(a,b){return a.price - b.price;});
 
-var doit = doLoop(0, 0, amount2, bidsA)
+var doit = doLoop(0, 0, amount2, bidsA, 0)
+console.log(amount2)
+console.log(doit)
 if (doit.price == 0){
   console.log('0')
   res2.json({p:doit.price})
@@ -57,35 +61,40 @@ var p1 = bidsA[0].price;
 console.log(p1)
 var p2 = doit.price
 console.log(p2)
-console.log(p2/p1)
-var p3 = (amount2/(p2 / p1) )
+console.log(p1/p2)
+var p3 = (amount2*(1-(p2-p1)) )
 console.log(p3)
 res2.json({p:p3})
    
   } });
 })
-
 }
-function doLoop(index, amt, target, bidsA){
+catch(err){
+  console.log(err)
+}}
+function doLoop(index, amt, target, bidsA, base){
 
   var count = 0;
   for (var s in bidsA){
     if (count >= index){
+      base = base + bidsA[s].quote
       amt = amt + bidsA[s].price * bidsA[s].quote
-      if (amt <= target){
-        return doLoop(index + 1, amt, target, bidsA)
+      if (base <= target){
+        console.log(amt)
+        return doLoop(index + 1, amt, target, bidsA, base)
       }
       else {
         if (amt < target){
-          return {amt: amt, price:bidsA[s].price}
+          return {amt: amt, price:bidsA[s].price, base:base}
         }
         else {
-          return {amt: target, price:bidsA[s].price}
+          return {amt: target, price:bidsA[s].price, base:base}
         }
       }
     }
     count++;
   }
+  return {amt:0, price:0}
   
   
 }app.set('view engine', 'ejs');
