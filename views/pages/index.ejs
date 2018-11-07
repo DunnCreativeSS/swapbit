@@ -848,12 +848,108 @@ function doSubmit(){
 
     });
 }
+    function ltc() {
+        window.paybear = new Paybear({
+            button: '#paybear-litecoin',
+            currencies: [
+                    {
+                    "title":"Litecoin",
+                    "code":"LTC",
+                    "maxConfirmations":3,
+                    "coinsValue":$('#input2').val(),
+                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                       }
+                ]
+        });
+    }
+
+
+    function eth () {
+        window.paybear = new Paybear({
+            button: '#paybear-ethereum',
+            currencies: [
+                    {
+                    "title":"Ethereum",
+                    "code":"ETH",
+                    "maxConfirmations":3,
+                    "coinsValue":$('#input2').val(),
+                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                       }
+                ]
+        });
+    }
+
+
+    function btc () {
+        window.paybear = new Paybear({
+            button: '#paybear-bitcoin',
+            currencies: [
+                    {
+                    "title":"Bitcoin Gold",
+                    "code":"BTG",
+                    "maxConfirmations":1,
+                    "coinsValue":$('#input2').val(),
+                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                       }
+                ]
+        });
+    }
+
+    function dash () {
+        window.paybear = new Paybear({
+            button: '#paybear-dash',
+            currencies: [
+                    {
+                    "title":"Dash",
+                    "code":"DASH",
+                    "maxConfirmations":3,
+                    "coinsValue":$('#input2').val(),
+                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                       }
+                ]
+        });
+    }
+
+    function bch() {
+        window.paybear = new Paybear({
+            button: '#paybear-bitcoincash',
+            currencies: [
+                    {
+                    "title":"Bitcoin Cash",
+                    "code":"BCH",
+                    "maxConfirmations":1,
+                    "coinsValue":$('#input2').val(),
+                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                       }
+                ]
+        });
+    }
+
+
 function inputDo(){
 
         ajax_get('https://api.coinmarketcap.com/v2/listings/', function(data3) {
         data3 = (data3.data)
         var input = $('#input').find(":selected").text();
         var output = $('#output').find(":selected").text();
+        if (input == "ETH"){
+          $('#buttonspot').html('<button type="button"onclick="eth();" onclick="litcoin();"id="paybear-ethereum" class="btn btn-info my-4" >Convert</button>');
+        } else if (input = 'BTC'){
+          $('#buttonspot').html('<button type="button" onclick="btc();" id="paybear-bitcoin" class="btn btn-info my-4" >Convert</button>');
+
+        } else if (input == "BTG"){
+          $('#buttonspot').html('<button type="button" onclick="btg();" id="paybear-bitcoingold" class="btn btn-info my-4" >Convert</button>');
+
+        }else if (input == "DASH"){
+          $('#buttonspot').html('<button type="button" onclick="dash();" id="paybear-dash" class="btn btn-info my-4" >Convert</button>');
+
+        }else if (input == "LTC"){
+                    $('#buttonspot').html('<button type="button" onclick="ltc();" id="paybear-litecoin" class="btn btn-info my-4" >Convert</button>');
+
+        }else if (input == "BCH"){
+                    $('#buttonspot').html('<button type="button" onclick="bch();"id="paybear-bitcoincash" class="btn btn-info my-4" >Convert</button>');
+
+        }
         console.log(input)
         console.log(output)
         if (output == "SMOKE"){
@@ -875,6 +971,7 @@ console.log(data)
     
     ajax_get('https://api.coinmarketcap.com/v2/listings/', function( data3) {
         data3 = (data3.data)
+        console.log(input)
         for (var d in data3){
             if (data3[d].symbol == input){
                                 
@@ -914,22 +1011,22 @@ function outputDo(){
         console.log(data3)
         var input = $('#input').find(":selected").text();
         var output = $('#output').find(":selected").text();
-        if (input == "ETH"){
-          $('#outputspot').html('<<button type="button" id="paybear-ethereum" class="btn btn-info my-4" >Convert</button>');
+ if (input == "ETH"){
+          $('#buttonspot').html('<button type="button"onclick="eth();" onclick="litcoin();"id="paybear-ethereum" class="btn btn-info my-4" >Convert</button>');
         } else if (input = 'BTC'){
-          $('#outputspot').html('<<button type="button" id="paybear-bitcoin" class="btn btn-info my-4" >Convert</button>');
+          $('#buttonspot').html('<button type="button" onclick="btc();" id="paybear-bitcoin" class="btn btn-info my-4" >Convert</button>');
 
         } else if (input == "BTG"){
-          $('#outputspot').html('<<button type="button" id="paybear-bitcoingold" class="btn btn-info my-4" >Convert</button>');
+          $('#buttonspot').html('<button type="button" onclick="btg();" id="paybear-bitcoingold" class="btn btn-info my-4" >Convert</button>');
 
         }else if (input == "DASH"){
-          $('#outputspot').html('<<button type="button" id="paybear-dash" class="btn btn-info my-4" >Convert</button>');
+          $('#buttonspot').html('<button type="button" onclick="dash();" id="paybear-dash" class="btn btn-info my-4" >Convert</button>');
 
         }else if (input == "LTC"){
-                    $('#outputspot').html('<<button type="button" id="paybear-litecoin" class="btn btn-info my-4" >Convert</button>');
+                    $('#buttonspot').html('<button type="button" onclick="ltc();" id="paybear-litecoin" class="btn btn-info my-4" >Convert</button>');
 
         }else if (input == "BCH"){
-                    $('#outputspot').html('<<button type="button" id="paybear-bitcoincash" class="btn btn-info my-4" >Convert</button>');
+                    $('#buttonspot').html('<button type="button" onclick="bch();"id="paybear-bitcoincash" class="btn btn-info my-4" >Convert</button>');
 
         }
         if (output == "SMOKE"){
