@@ -57,14 +57,9 @@ if (doit.price == 0){
   console.log('0')
   res2.json({p:doit.price})
 }else{
-var p1 = bidsA[0].price;
-console.log(p1)
-var p2 = doit.price
-console.log(p2)
-console.log(p1/p2)
-var p3 = (amount2*(1-(p2-p1)) )
-console.log(p3)
-res2.json({p:p3})
+console.log(amount2)
+console.log(doit.amt)
+res2.json({p:amount2 * (doit.amt/amount2)})
    
   } });
 })
