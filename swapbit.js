@@ -214,7 +214,7 @@ console.log(input)
 console.log(output)
 console.log(account)
 
-  var myobj = { account: account, address: data.address, invoice: invoice, input: input, output: output, paid: false};
+  var myobj = { account: account, address: data.address, invoice: data.invoice, input: input, output: output, paid: false};
   dbo.collection("invoices").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
