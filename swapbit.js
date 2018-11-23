@@ -213,6 +213,7 @@ res.json({address: data.address})
 app.post('/paybear/callback', (req, res) => {
   if(req.body) {
   var data = req.body;
+  console.log(data);
   var invoice = data.invoice;
   //save data.confirmations - number of confirmations to DB
 
@@ -222,6 +223,7 @@ app.post('/paybear/callback', (req, res) => {
     //compare $invoice with one saved in the database to ensure callback is legitimate
     //mark the order as paid
       var myquery = { invoice: invoice};
+	  console.log(myquery);
   dbo.collection("invoices").find(myquery).toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
