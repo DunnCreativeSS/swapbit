@@ -857,8 +857,6 @@ $('#output').on('change', function(){
   output = $('#output').val().split('-')[0];
   console.log(output)
 })
-let address = "";
-let invoice = "";
 function dopb(){
   console.log($('#input').val())
   console.log('dopb')
@@ -870,8 +868,7 @@ function dopb(){
 					  + '&output=' + output
 					  + '&account=' + account, function(data){
                       console.log(data)
-  address = data.address;
-  invoice = data.invoice;
+  let invoice = data.invoice;
   let address = data.address;
   console.log(address);
 
