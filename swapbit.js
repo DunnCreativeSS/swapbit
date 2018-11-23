@@ -205,12 +205,11 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 app.get('/getaddress', (req, res) => {
 let input = req.query.input;
-var output = req.body.output;
-var account = req.body.account;
-var invoice = req.body.invoice;
+var output = req.query.output;
+var account = req.query.account;
 request('https://api.paybear.io/v2/' + input + '/payment/http%3A%2F%2Fburstytools.trade%2Fpaybear%2Fcallback?token=sec97452dbe86fd2176012d9e840c4c8857', function (err, data){
 data = JSON.parse(data.body).data;
-
+console.log(data);
 console.log(input)
 console.log(output)
 console.log(account)
