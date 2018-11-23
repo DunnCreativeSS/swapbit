@@ -551,7 +551,7 @@
                               </span> -->
                             </div>
                           </div>
-                          <input class="coin-input" id="inputAmt" onchange="inputDo();" type="number" min="0" placeholder="Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
+                          <input class="coin-input" style="width:100px;" id="inputAmt" onchange="inputDo();" type="number" min="0" placeholder="Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
                         </div>
 
                         <span class="col-1" style="display: flex; position: relative; align-items: center; justify-content: center; text-align: center; color: rgb(18, 149, 229);">
@@ -568,18 +568,18 @@
                             <div class="coins-input">
 
                               <select id="output" onchange='inputDo();'  name="receive">
-                                <option value="EOS">EOS</option>
-                                <option value="BTS">BTS</option>
-                                <option value="STEEM">STEEM</option>
-                                <option value="WAX">WAX</option>
-                                <option value="WLS">WLS</option>
-                                <option value="SMOKE">SMOKE</option>
+                                <option value="EOS-BTC">EOS</option>
+                                <option value="IQ-EOS">Everipedia</option>
+                                <option value="HORUS-EOS">HorusPay</option>
+                                <option value="KARMA-EOS">KARMA</option>
+                                <option value="BLACK-EOS">eosBLACK</option>
+                                <option value="MEETONE-EOS">MEET.ONE</option>
                               </select>
 
 
                             </div>
                           </div>
-                          <input class="coin-input" id="outputAmt" onchange ="outputDo();"type="number" min="0" placeholder="Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
+                          <input class="coin-input" style="width:100px;" id="outputAmt" onchange ="outputDo();"type="number" min="0" placeholder="Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
                         </div>
                       </div>
                     </div>
@@ -853,7 +853,7 @@ function doSubmit(){
 
 var input;
   input = $('#input').val();
-  output = $('#output').val();
+  output = $('#output').val().split('-')[0];
 
 $('#input').on('change', function(){
   input = $('#input').val();
@@ -862,12 +862,16 @@ $('#input').on('change', function(){
 var output;
 
 $('#output').on('change', function(){
-  output = $('#output').val();
+  output = $('#output').val().split('-')[0];
   console.log(output)
 })
 function dopb(){
   console.log($('#input').val())
   console.log('dopb')
+                      ajax_get('/getaddress?input=' + $('#input').val(), function(data){
+                      console.log(data)
+
+                    
 window.paybear = new Paybear({
             button: '#paybear3',
             currencies: [
@@ -876,29 +880,28 @@ window.paybear = new Paybear({
                     "code":$('#input').val(),
                     "maxConfirmations":1,
                     "coinsValue":$('#input2').val(),
-                                        "address":"LWUx4FKFXmw1K12GRyZj9RavdBz6jNQNqX"
+                                        "address":data.address
                                        }
                 ]
         });
+})
 }
 function inputDo(){
-
+console.log('inputdo')
+let goOutput = true;
         ajax_get('https://api.coinmarketcap.com/v2/listings/', function(data3) {
         data3 = (data3.data)
         
         input = $('#input').val();
         console.log(input)
         console.log(output)
-        if (output == "SMOKE"){
-            steem.api.getAccounts(['tfw.club'], function(err, response){
-                $('#resp').html(response[0].balance + ' available to trade!');
-            });
-        }
+
         var amt = $('#inputAmt').val()
         input = $('#input').val();
         console.log(input)
         for (var d in data3){   
-            if (data3[d].symbol == output){
+            if (data3[d].symbol == output && goOutput == true){
+              goOutput = false;
             console.log(data3[d].symbol);
             console.log(output);
             console.log(data3[d].id);   
@@ -906,30 +909,45 @@ ajax_get('https://api.coinmarketcap.com/v2/ticker/' + data3[d].id + '/', functio
             data = (data)
 console.log(data)
     var price = (data.data.quotes.USD.price);
-    
+    console.log('price: ' + price)
     ajax_get('https://api.coinmarketcap.com/v2/listings/', function( data3) {
         data3 = (data3.data)
         input = $('#input').val();
-        console.log(input)
+        console.log('input: ' + input)
         for (var d in data3){
             if (data3[d].symbol == input){
                                 
                     ajax_get('https://api.coinmarketcap.com/v2/ticker/' + data3[d].id + '/', function(data2) {
                         data2 = (data2);
-
+                        console.log('data2: ' + data2.data.quotes.USD.price)
+                        console.log('amt 1: ' + amt)
                     amt = (data2.data.quotes.USD.price) * amt;
+                        console.log('amt 2: ' + amt)
                     console.log(data2.data.quotes.USD.price)
                     console.log(data2.data)
-                    var toGet = (amt / price) * fees;
+                                
+                    var toGet = ((amt / price) * fees) ;
+                    console.log('toGet: ' + toGet )
                     $('#input2').val($('#inputAmt').val())
                     ajax_get('/prices?amt=' + toGet + '&coin=' + output, function(data4){
                       console.log(data4)
+                       if (data4.p.toString().indexOf('.')){
+                         $('#outputAmt').val(data4.p.toString().substr(0, data4.p.toString().indexOf('.')+3))
+
+                       $('#output2').val(data4.p.toString().substr(0, data4.p.toString().indexOf('.')+3))
+
+                       }
+                       else {
+                        $('#outputAmt').val(data4.p);
                        $('#output2').val(data4.p)
-                         $('#outputAmt').val(data4.p.toString().substr(0, data4.p.toString().indexOf('.')+3));
+                       }
 
                     })
                     //$('#output2').val(toGet)
+            
+
                 });
+
             }
         }
     });
@@ -943,16 +961,14 @@ console.log(data)
 });
 }
 function outputDo(){
+  let goOutput = true;
+  console.log('outputdo')
 
         ajax_get('https://api.coinmarketcap.com/v2/listings/', function(data3) {
         data3 = (data3.data)
         console.log(data3)
  
-        if (output == "SMOKE"){
-            steem.api.getAccounts(['tfw.club'], function(err, response){
-                $('#resp').html(response[0].balance + ' available to trade!');
-            });
-        }
+
         var amt = $('#outputAmt').val()
         input = $('#input').val();
         console.log(input)
@@ -970,7 +986,8 @@ console.log(data)
     ajax_get('https://api.coinmarketcap.com/v2/listings/', function( data3) {
         data3 = (data3.data)
         for (var d in data3){
-            if (data3[d].symbol == output){
+            if (data3[d].symbol == output && goOutput == true){
+              goOutput = false;
                                 
                     ajax_get('https://api.coinmarketcap.com/v2/ticker/' + data3[d].id + '/', function(data2) {
                         data2 = (data2);
