@@ -863,11 +863,10 @@ function dopb(){
   console.log($('#input').val())
   console.log('dopb')
   var input = $('#input').find(":selected").text();
-        var output = $('#output').find(":selected").text();
+        var output = $('#output').val();
 		var account = ($('#account').val());
 		console.log('form2');
-                      ajax_get('/getaddress?input=' + $('#input').val()
-					  + '&input=' + input
+                      ajax_get('/getaddress?input=' + input
 					  + '&output=' + output
 					  + '&account=' + account, function(data){
                       console.log(data)
