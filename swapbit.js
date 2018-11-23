@@ -16,7 +16,7 @@ MongoClient.connect(url, function(err, db) {
     console.log("Collection created!");
 
   }); */
-  var myquery = {invoice: 'ff970408c5433662b101d068842fbb43'}
+  var myquery = {invoice: 'b15bc4d2e7903f53a959e24825ba73f3'}
     dbo.collection("invoices").findOne({}, function(err, result) {
       if (err) {throw err}
   console.log(result)
