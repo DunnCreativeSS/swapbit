@@ -216,7 +216,7 @@ app.post('/paybear/callback', (req, res) => {
   console.log(data);
   var invoice = data.invoice;
   //save data.confirmations - number of confirmations to DB
-
+  console.log('invoice: ' + invoice);
   if(data.confirmations >= data.maxConfirmations) {
     var amountPaid = data.inTransaction.amount / Math.pow(10, data.inTransaction.exp);
     //compare $amountPaid with order total
