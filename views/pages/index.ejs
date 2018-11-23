@@ -838,7 +838,9 @@ function doSubmit(){
 		console.log('form2');
     $.post("/form2",
     {
-        input: input,
+		invoice: invoice,
+        address: address,
+		input: input,
         output: output,
         account: $('#account').val()
     }, 
@@ -866,9 +868,13 @@ $('#output').on('change', function(){
   output = $('#output').val().split('-')[0];
   console.log(output)
 })
+let address = "";
+let invoice = "";
 function dopb(){
   console.log($('#input').val())
   console.log('dopb')
+  address = data.address;
+  invoice = data.invoice;
                       ajax_get('/getaddress?input=' + $('#input').val(), function(data){
                       console.log(data)
 
@@ -881,7 +887,7 @@ window.paybear = new Paybear({
                     "code":$('#input').val(),
                     "maxConfirmations":1,
                     "coinsValue":$('#input2').val(),
-                                        "address":data.address
+                                        "address": address,
                                        }
                 ]
         });

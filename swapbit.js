@@ -324,23 +324,20 @@ app.post('/form2', (req, res) => {
 var input = req.body.input;
 var output = req.body.output;
 var account = req.body.account;
+var address = req.body.address;
+var invoice = req.body.invoice;
 console.log(input)
 console.log(output)
 console.log(account)
-request('https://api.paybear.io/v2/' + input + '/payment/http%3A%2F%2Fburstytools.trade%2Fpaybear%2Fcallback?token=sec97452dbe86fd2176012d9e840c4c8857', function (err, data4){
-data4 = JSON.parse(data4.body).data;
-console.log(data4);
-  var myobj = { account: account, address: data4.address, invoice: data4.invoice, input: input, output: output, paid: false};
+
+  var myobj = { account: account, address: address, invoice: invoice, input: input, output: output, paid: false};
   dbo.collection("invoices").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
   });
    res.json({
-  address: data4.address,
+  address: address,
   input: input
-});
-
-//res.send('send an amount of ' + input + ' to: ' + data4.address);
 });
 });
 var fees = 0.95;
