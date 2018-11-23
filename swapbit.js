@@ -16,15 +16,6 @@ MongoClient.connect(url, function(err, db) {
     console.log("Collection created!");
 
   }); */
-  request('https://api.paybear.io/v2/ETH/payment/http%3A%2F%2Fburstytools.trade%2Fpaybear%2Fcallback?token=sec97452dbe86fd2176012d9e840c4c8857', function (err, data4){
-data4 = JSON.parse(data4.body).data;
-console.log(data4);
-  var myobj = { account: 'hexadecimal1', address: data4.address, invoice: data4.invoice, input: 'ETH', output: 'IQ', paid: false};
-  dbo.collection("invoices").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-  });
-}); 
   var myquery = {invoice: 'ff970408c5433662b101d068842fbb43'}
     dbo.collection("invoices").findOne({}, function(err, result) {
       if (err) {throw err}
