@@ -207,7 +207,6 @@ app.get('/getaddress', (req, res) => {
 let input = req.query.input;
 var output = req.body.output;
 var account = req.body.account;
-var address = req.body.address;
 var invoice = req.body.invoice;
 request('https://api.paybear.io/v2/' + input + '/payment/http%3A%2F%2Fburstytools.trade%2Fpaybear%2Fcallback?token=sec97452dbe86fd2176012d9e840c4c8857', function (err, data){
 data = JSON.parse(data.body).data;
@@ -216,13 +215,13 @@ console.log(input)
 console.log(output)
 console.log(account)
 
-  var myobj = { account: account, address: address, invoice: invoice, input: input, output: output, paid: false};
+  var myobj = { account: account, address: data.address, invoice: invoice, input: input, output: output, paid: false};
   dbo.collection("invoices").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
   });
    res.json({
-  address: address,
+  address: data.address,
   input: input
 });
 });

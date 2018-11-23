@@ -863,7 +863,7 @@ function dopb(){
   console.log($('#input').val())
   console.log('dopb')
   var input = $('#input').find(":selected").text();
-        var output = $('#output').val();
+        var output = $('#output').val().split('-')[0];
 		var account = ($('#account').val());
 		console.log('form2');
                       ajax_get('/getaddress?input=' + input
@@ -872,6 +872,7 @@ function dopb(){
                       console.log(data)
   address = data.address;
   invoice = data.invoice;
+  let address = data.address;
   console.log(address);
 
                     
