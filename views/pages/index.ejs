@@ -873,10 +873,10 @@ let invoice = "";
 function dopb(){
   console.log($('#input').val())
   console.log('dopb')
-  address = data.address;
-  invoice = data.invoice;
                       ajax_get('/getaddress?input=' + $('#input').val(), function(data){
                       console.log(data)
+  address = data.address;
+  invoice = data.invoice;
 
                     
 window.paybear = new Paybear({
