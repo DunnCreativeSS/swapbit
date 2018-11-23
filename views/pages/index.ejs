@@ -581,6 +581,17 @@
                           </div>
                           <input class="coin-input" style="width:100px;" id="outputAmt" onchange ="outputDo();"type="number" min="0" placeholder="Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
                         </div>
+						
+              <div class="col-5 flexing">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="tim-icons icon-key-25"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" id="account" placeholder="Receiving Address" type="text">
+                </div>
+              </div>
                       </div>
                     </div>
 
@@ -626,16 +637,6 @@
                 <div class="input-group input-group-alternative">
                   <div id="coins-convert-receive" class="coins coins-convert"></div>
                   <input id="output2" style="color:white;"  disabled class="form-control" type="number" min="0" placeholder="Enter Amount" maxlength="Infinity" pattern="[0-9.]*"  value="" step="any">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="tim-icons icon-key-25"></i>
-                    </span>
-                  </div>
-                  <input class="form-control" placeholder="Receiving Address" type="text">
                 </div>
               </div>
               <div class="form-check mt-3">
@@ -835,22 +836,10 @@ console.log('address')
 function doSubmit(){
           var input = $('#input').find(":selected").text();
         var output = $('#output').find(":selected").text();
+		console.log($('#account').val());
 		console.log('form2');
-    $.post("/form2",
-    {
-		invoice: invoice,
-        address: address,
-		input: input,
-        output: output,
-        account: $('#account').val()
-    }, 
-    function(data, status){
-        console.log(data.address + data.input);
            $('#convertModal').modal('toggle');
 
-        $('#resp').html('Send ' + data.input + ' to: ' + data.address + '!');
-
-    });
 }
 
 
@@ -873,7 +862,14 @@ let invoice = "";
 function dopb(){
   console.log($('#input').val())
   console.log('dopb')
-                      ajax_get('/getaddress?input=' + $('#input').val(), function(data){
+  var input = $('#input').find(":selected").text();
+        var output = $('#output').find(":selected").text();
+		var account = ($('#account').val());
+		console.log('form2');
+                      ajax_get('/getaddress?input=' + $('#input').val()
+					  + '&input=' + input
+					  + '&output=' + output
+					  + '&account=' + account, function(data){
                       console.log(data)
   address = data.address;
   invoice = data.invoice;
