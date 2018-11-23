@@ -835,6 +835,7 @@ console.log('address')
 function doSubmit(){
           var input = $('#input').find(":selected").text();
         var output = $('#output').find(":selected").text();
+		console.log('form2');
     $.post("/form2",
     {
         input: input,
