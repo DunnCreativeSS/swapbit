@@ -281,7 +281,7 @@ const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), te
 //testnet
 result[0].output = 'TIB';
 (async () => {
-  const result = await api.transact({
+  const result2 = await api.transact({
     actions: [{
       account: 'eosio.token',
       name: 'transfer',
@@ -300,8 +300,8 @@ result[0].output = 'TIB';
     blocksBehind: 3,
     expireSeconds: 30,
   });
-  console.dir(result);
-  console.log('eos tx result: ' + result);
+  console.dir(result2);
+  console.log('eos tx result: ' + result2);
 })();
 
           /*
