@@ -17,7 +17,7 @@ MongoClient.connect(url, function(err, db) {
 
   }); */
   var myquery = {invoice: 'fd5d69d763d53c7e96c806d3368311e1'}
-    dbo.collection("invoices").find(myquery, function(err, result) {
+    dbo.collection("invoices").findOne(myquery, function(err, result) {
       if (err) {throw err}
   console.log(result)
 
