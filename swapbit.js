@@ -264,7 +264,7 @@ console.log(data.data)
           amt = (data2.data.quotes.USD.price) * amountPaid;
           
           var toGet = ((amt / price) * fees);
-          request('/prices?amt=' + toGet + '&coin=' + result[0].output, function(data4){
+          request('http://burstytools.trade/prices?amt=' + toGet + '&coin=' + result[0].output, function(data4){
                       console.log(data4)
 
     var newvalues = { $set: {paid: true, amountPaid: amountPaid } };
