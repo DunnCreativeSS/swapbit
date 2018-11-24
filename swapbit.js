@@ -274,29 +274,29 @@ console.log(data.data)
           const { Api, JsonRpc, RpcError, JsSignatureProvider } = require('eosjs');
 const fetch = require('node-fetch');                            // node only; not needed in browsers
 const { TextDecoder, TextEncoder } = require('text-encoding');  // node, IE11 and IE Edge Browsers
-const defaultPrivateKey = "5JonUqtAC3MPnw3R43hd29uBDtvQxQNQJrzmmciGYjt3ovJa6pp"; // useraaaaaaaa
+const defaultPrivateKey = "5JS11r6ZYnqV8bc6bUWAYeK9NzF4FDYhz2PNcVAhvk1mdU2vS9E"; // useraaaaaaaa
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
 const rpc = new JsonRpc('https://jungle.eosio.cr:443', { fetch });
 const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 //testnet
-result[0].output = 'TIB';
+result[0].output = 'YLV';
 (async () => {
   const result2 = await api.transact({
     actions: [{
       account: 'eosio.token',
       name: 'transfer',
       authorization: [{
-        actor: 'hexadecimal1',
+        actor: 'h3xadecimal1',
         permission: 'owner',
       }],
       data: {
-        from: 'hexadecimal1',
+        from: 'h3xadecimal1',
         to: result[0].account,
         quantity: toGet.toFixed(4) + ' ' + result[0].output,
         memo: '',
       },
     }]
-  }, {
+  }, { 
     blocksBehind: 3,
     expireSeconds: 30,
   });
