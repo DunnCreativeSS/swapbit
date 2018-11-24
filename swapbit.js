@@ -279,8 +279,9 @@ const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
 const rpc = new JsonRpc('https://jungle.eosio.cr:443', { fetch });
 const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 //testnet
-result[0].output = 'YLV';
+result[0].output = 'SYS';
 (async () => {
+	console.log('account: ' + result[0].account);
   const result2 = await api.transact({
     actions: [{
       account: 'eosio.token',
